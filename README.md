@@ -1,39 +1,75 @@
 # 💩 BullshiftDetector
 
-> AI-powered LinkedIn cringe detector, roaster & rewriter — because someone had to do it.
+### AI-powered LinkedIn cringe detector, roaster & rewriter — because someone had to do it.
 
-🔴 **Live Demo → [bullshiftdetector.web.app](https://bullshiftdetector.web.app)**
+![Next.js](https://img.shields.io/badge/Next.js_14-black?style=for-the-badge&logo=next.js)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Claude AI](https://img.shields.io/badge/Claude_AI-D97706?style=for-the-badge&logo=anthropic&logoColor=white)
+![GCP](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FF6F00?style=for-the-badge&logo=firebase&logoColor=white)
+![Python](https://img.shields.io/badge/Python_3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+🔴 [**Live Demo**](https://bullshiftdetector.web.app) · 📖 [**API Docs**](https://bullshift-backend-904786422972.us-central1.run.app/docs) · ⭐ **Star this repo**
+
+![Live](https://img.shields.io/badge/Live-GCP_Cloud_Run-brightgreen?style=flat-square)
+![AI Powered](https://img.shields.io/badge/AI-Claude_Sonnet-orange?style=flat-square)
+![LinkedIn Posts Roasted](https://img.shields.io/badge/LinkedIn_Posts-Roasted_Daily-red?style=flat-square)
+![Bullshift Tolerance](https://img.shields.io/badge/Bullshift_Tolerance-Zero-black?style=flat-square)
 
 ---
 
-## What is this?
+## What is BullshiftDetector?
 
-Paste any LinkedIn post. Get back:
+BullshiftDetector is a **full-stack AI application** that analyzes LinkedIn posts for corporate buzzwords, hollow humility, and performative authenticity — then roasts them with Claude AI.
 
-- 🎯 **Cringe Score** (0–100) — how much bullshift is in it
-- 💩 **Detected Buzzwords** — the offending words, highlighted
-- 🔥 **The Roast** — a savage one-liner about the post
-- ✅ **Clean Version** — what they should have said like a normal human
-- 🔗 **Share your score** — post your cringe rating to LinkedIn (meta 😂)
+> 💡 Tired of "Humbled and excited to announce"? So are we. So we built a detector.
 
 ---
 
-## Built With
+## Features
 
-| Layer | Tech |
-|-------|------|
-| 🧠 AI | Claude API (claude-sonnet-4-5) |
+- 🎯 **Cringe Score (0–100)** — AI-powered scoring of how much bullshift is in the post
+- 💩 **Buzzword Detection** — highlights offending words in real time
+- 🔥 **The Roast** — one savage AI-generated one-liner about the post
+- ✅ **Clean Rewrite** — what they should have said like a normal human
+- 📋 **Copy & Share** — copy the clean version or share your cringe score to LinkedIn
+- 🌗 **Dark / Light Mode** — because we're professional like that
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| 🧠 AI Engine | Claude API (claude-sonnet-4-5) |
 | ⚙️ Backend | FastAPI + Python 3.12 |
 | 🎨 Frontend | Next.js 14 + Tailwind CSS |
-| ☁️ Deploy (BE) | GCP Cloud Run |
-| 🔥 Deploy (FE) | Firebase Hosting |
+| ☁️ Backend Deploy | GCP Cloud Run |
+| 🔥 Frontend Deploy | Firebase Hosting |
 | 📦 Container | Docker |
+| 🔁 CI/CD | GCP Cloud Build |
+
+---
+
+## How It Works
+
+```
+User pastes LinkedIn post
+        ↓
+FastAPI backend receives request
+        ↓
+Claude API analyzes for buzzwords, cringe score, roast & rewrite
+        ↓
+Returns structured JSON response
+        ↓
+Next.js frontend renders animated results
+```
 
 ---
 
 ## Run Locally
 
-### 1. Clone the repo
+### 1. Clone
 ```bash
 git clone https://github.com/rohithkandula19/BullshiftDetector.git
 cd BullshiftDetector
@@ -50,8 +86,8 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8080
 ```
 
-Backend runs at: `http://localhost:8080`
-Swagger docs at: `http://localhost:8080/docs`
+Backend: `http://localhost:8080`  
+Swagger: `http://localhost:8080/docs`
 
 ### 3. Frontend
 ```bash
@@ -62,7 +98,7 @@ npm install
 npm run dev
 ```
 
-Frontend runs at: `http://localhost:3000`
+Frontend: `http://localhost:3000`
 
 ---
 
@@ -99,7 +135,8 @@ gcloud artifacts repositories create bullshift \
   --repository-format=docker \
   --location=us-central1
 
-gcloud builds submit --tag us-central1-docker.pkg.dev/YOUR_PROJECT_ID/bullshift/bullshift-backend
+gcloud builds submit \
+  --tag us-central1-docker.pkg.dev/YOUR_PROJECT_ID/bullshift/bullshift-backend
 
 gcloud run deploy bullshift-backend \
   --image us-central1-docker.pkg.dev/YOUR_PROJECT_ID/bullshift/bullshift-backend \
@@ -109,7 +146,7 @@ gcloud run deploy bullshift-backend \
   --set-env-vars ANTHROPIC_API_KEY=your_key_here
 ```
 
-### Frontend → Firebase Hosting
+### Frontend → Firebase
 ```bash
 cd frontend
 npm run build
@@ -120,7 +157,7 @@ firebase deploy --only hosting
 
 ## Project Structure
 
-
+```
 bullshiftdetector/
 ├── backend/
 │   ├── app/
@@ -133,28 +170,24 @@ bullshiftdetector/
 │   └── .env.example
 ├── frontend/
 │   ├── src/
-│   │   ├── app/
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx
-│   │   │   └── globals.css
+│   │   ├── app/page.tsx
 │   │   ├── components/
 │   │   │   ├── CringeMeter.tsx
 │   │   │   └── HighlightedPost.tsx
 │   │   └── lib/api.ts
 │   ├── package.json
-│   ├── next.config.js
-│   ├── firebase.json
-│   └── .env.example
+│   └── firebase.json
 └── README.md
-
+```
 
 ---
 
 ## Why I Built This
 
-Because I got tired of seeing "Humbled and excited to announce" for the 47th time this week.
-Also, it makes recruiters laugh. And laughing recruiters give offers. 😂
+Because I got tired of seeing *"Humbled and excited to announce"* for the 47th time this week.
+
+Also — it makes recruiters laugh. And laughing recruiters give offers. 😂
 
 ---
 
-built with 🤖 Claude API · no posts stored · roasts fictional · we are not responsible for any existential crises 🫠
+built with 🤖 Claude API · no posts stored · roasts fictional · zero bullshift tolerance 💩
